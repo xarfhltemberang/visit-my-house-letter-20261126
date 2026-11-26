@@ -66,7 +66,9 @@ def draw_house_scene(d):
     hy0, hy1 = base_y - house_h, base_y
 
     # Soft sky wash behind the house, drawn first so the sun sits on top.
-    d.ellipse([cx - 430, 40, cx + 430, 300], fill=SKY)
+    # Bottom trimmed to 252 so no blue crescent shows below the garden
+    # behind the "AN INVITATION" header.
+    d.ellipse([cx - 430, 40, cx + 430, 252], fill=SKY)
 
     # Sun, top left of the scene.
     sun_x, sun_y, sun_r = cx - 330, 118, 26
@@ -199,13 +201,14 @@ def main():
     margin = 96
     text_w = W - 2 * margin
 
-    # Small-caps style header.
+    # Small-caps style header. Sits at y=282 on clean paper, clear of the
+    # garden ellipse (bottom edge 278), instead of straddling it.
     header = "·  A N  I N V I T A T I O N  ·"
     hw = d.textlength(header, font=f_header)
-    d.text(((W - hw) / 2, 268), header, font=f_header, fill=ACCENT_DARK)
+    d.text(((W - hw) / 2, 282), header, font=f_header, fill=ACCENT_DARK)
 
     # Salutation.
-    y = 312
+    y = 326
     d.text((margin, y), "Dear Judge,", font=f_salut, fill=INK)
     y += 62
 
